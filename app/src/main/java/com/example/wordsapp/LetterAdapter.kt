@@ -15,6 +15,8 @@
  */
 package com.example.wordsapp
 
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
@@ -22,6 +24,7 @@ import android.view.ViewGroup
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.Button
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -62,7 +65,20 @@ class LetterAdapter :
     override fun onBindViewHolder(holder: LetterViewHolder, position: Int) {
         val item = list.get(position)
         holder.button.text = item.toString()
+
+        holder.button.setOnClickListener {
+            // نعرف context
+            val context = holder.view.context
+            //نعرف intent نوعها explicit
+            val intent = Intent(context,DetailActivity::class.java)
+            //نرسل معلومات زيادة للواجهة اللي بنروح لها DetailActivity عن قيمة الحرف اللي وصله
+            intent.putExtra(DetailActivity.LETTER, item)
+            context.startActivity(intent)
+        }
     }
+
+
+
 
     // Setup custom accessibility delegate to set the text read with
     // an accessibility service
