@@ -42,6 +42,8 @@ class DetailActivity : AppCompatActivity() {
         // Retrieve the LETTER from the Intent extras
         // intent.extras.getString returns String? (String or null)
         // so toString() guarantees that the value will be a String
+
+        //نستقبل الحرف اللي وصلني من intent - ? >> تتأكد اذا هي null
         val letterId = intent?.extras?.get(LETTER).toString()
 
 
