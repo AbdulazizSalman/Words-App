@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
                 NavHostFragment
 
         navController = navHostFragment.navController
-
+            //back button Activate
         setupActionBarWithNavController(navController)
     }
 

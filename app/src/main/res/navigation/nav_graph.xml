@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/letterListFragment"
         android:name="com.example.wordsapp.ui.LetterListFragment"
-        android:label="fragment_letter_list"
+        android:label="Word app"
         tools:layout="@layout/fragment_letter_list" >
         <action
             android:id="@+id/action_letterListFragment_to_wordListFragment"
@@ -23,6 +23,6 @@
     <fragment
         android:id="@+id/wordListFragment"
         android:name="com.example.wordsapp.ui.WordListFragment"
-        android:label="fragment_word_list"
+        android:label="Word App"
         tools:layout="@layout/fragment_word_list" />
 </navigation>

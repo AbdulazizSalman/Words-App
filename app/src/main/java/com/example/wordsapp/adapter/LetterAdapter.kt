@@ -66,7 +66,6 @@ class LetterAdapter :
     override fun onBindViewHolder(holder: LetterViewHolder, position: Int) {
         val item = list.get(position)
         holder.button.text = item.toString()
-
         holder.button.setOnClickListener {
           val action = LetterListFragmentDirections.actionLetterListFragmentToWordListFragment(letter =
           holder.button.text.toString())
