@@ -15,86 +15,34 @@
  */
 package com.example.wordsapp
 
-import android.content.Context
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.wordsapp.databinding.ActivityMainBinding
-import java.util.zip.Inflater
 
 /**
  * Main Activity and entry point for the app. Displays a RecyclerView of letters.
  */
 class MainActivity : AppCompatActivity() {
-    private lateinit var recyclerView: RecyclerView
-
-    //نتابع حالة layout في اي وضع (linear or grid)
-    private var isLinearLayoutManager = true
-
+    private lateinit var navController:NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        recyclerView = binding.recyclerView
-        // Sets the LinearLayoutManager of the recyclerview
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = LetterAdapter()
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as
+                NavHostFragment
 
+        navController = navHostFragment.navController
 
-
-    }
-    //دالة مسؤولة عن تغيير حالة layout
-    private fun ChangeLayout(){
-        if(isLinearLayoutManager){
-            recyclerView.layoutManager = LinearLayoutManager(this)
-        }else{
-            recyclerView.layoutManager = GridLayoutManager(this,4)
-        }
-        recyclerView.adapter = LetterAdapter()
-
+        setupActionBarWithNavController(navController)
     }
 
-    //نغير شكل الايقونة بناء على اختيار المستخدم
-    private fun ChangeIcon(menuItem: MenuItem?){
-        if(menuItem == null)
-            return
-
-        menuItem.icon = if(isLinearLayoutManager)
-            ContextCompat.getDrawable(this,R.drawable.ic_grid_layout)
-        else
-            ContextCompat.getDrawable(this,R.drawable.ic_linear_layout)
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp()||super.onSupportNavigateUp()
     }
 
 
-    //نفعل option menu
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        //فعلنا زر menu في شاشة المستخدم
-       menuInflater.inflate(R.menu.layout_menu,menu)
-
-        //يظهر لنا بالبداية ListIcon
-        val layoutButton = menu?.findItem(R.id.action_switch_layout)
-        ChangeIcon(layoutButton)
-
-        return  true }
-
-    //اذا ضغط المستخدم على optionMenu يتفاعل معه
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId){
-            R.id.action_switch_layout->{
-                isLinearLayoutManager=!isLinearLayoutManager
-                ChangeLayout()
-                ChangeIcon(item)
-                return true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 }
